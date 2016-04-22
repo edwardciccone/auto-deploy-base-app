@@ -63,13 +63,26 @@ Login as root from your personal computer:
 Then install Git:  
 <code>$ apt-get install git-core</code>  
   
+### Capistrano Configuration  
 
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
+In <code>config/deploy.rb</code> set your application name and Github Repo:  
+<code>set :application, 'your-app-name'</code>  
+<code>set :repo_url, 'git@github.com:your-github-user/your-github-repo.git'</code>  
+  
+Then set where to deploy to:  
+<code>set :deploy_to, '/home/your-new-user/app'</code>  
+
+In <code>config/deploy/production.rb</code> insert:  
+<code>server 'your-ec2-instance.compute-1.amazonaws.com', user: 'your-new-user', roles: %w{app db web}</code>  
+  
+### Database Configuration  
+  
+Login as root again and install SQLite3's development headers:  
+<code>$ apt-get install libsqlite3-dev</code>  
+
+### JavaScript Runtime Configuration  
+Still logged in as root run:  
+<code>$ apt-get install nodejs</code>  
 <code>$ </code>  
 <code>$ </code>  
 <code>$ </code>  

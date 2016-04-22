@@ -1,14 +1,14 @@
 # config valid only for current version of Capistrano
 lock '3.4.1'
 
-set :application, 'todo-app'
-set :repo_url, 'git@github.com:edwardciccone/todo-app.git'
+set :application, 'auto-deploy-base-app'
+set :repo_url, 'git@github.com:edwardciccone/auto-deploy-base-app.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/home/todo-app/app'
+set :deploy_to, '/home/edward/app'
 
 # Default value for :scm is :git
 # set :scm, :git
