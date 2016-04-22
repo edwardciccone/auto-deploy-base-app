@@ -42,7 +42,7 @@ Then run the following:
 Now login as the new user:  
 <code>$ ssh your-new-user@your-ec2-instance.compute-1.amazonaws.com</code>  
 
-If it fails try:
+If it fails try:  
 <code>$ SSH_AUTH_SOCK=0 ssh your-new-user@your-ec2-insance.compute-1.amazonaws.com</code>  
 Then you can run it with out <code>SSH_AUTH_SOCK=0</code>.  
 
