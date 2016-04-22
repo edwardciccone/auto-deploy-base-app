@@ -166,9 +166,10 @@ These settings can be found on your personal computer in the <code>config/databa
 <code>  database: db/production.sqlite3</code>  
   
 ## Your Done!  
-<strong>
-When you make changes remember to commit and push your changes, and then rerun <code>bundle exec cap production deploy</code>.  
-To test your changes locally use <code>bundle exec passenger start</code> on your personal computer.  
-</strong>
+  
+When you make changes remember to commit and push your changes, and then rerun:  
+<code>bundle exec cap production deploy</code>.  
+To test your changes locally run:  
+<code>bundle exec passenger start</code>
  
 
