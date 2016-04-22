@@ -21,7 +21,7 @@ Use default settings for everything except when configuring the Security Group. 
 <code>$ rm -r ~/ruby-install-*</code>  
 <code>$ gem install bundler</code>  
 
-## Step 2 - Deploying  
+## Step 2 - Configuring The User 
 
 ### Create A New User  
 <code>$ useradd -d /home/your-new-user -m -s /bin/bash your-new-user</code>  
@@ -53,6 +53,8 @@ Generate your Github deploy key:
 <code>$ ssh-keygen -t rsa</code>  
   
 Copy the key (<code>cat ~/.ssh/id_rsa.pub</code>) to your Github Repos Deploy Keys under Settings.  
+
+## Step 3 - Further Server Configuration  
   
 ### Install Git  
 
@@ -83,10 +85,88 @@ Login as root again and install SQLite3's development headers:
 ### JavaScript Runtime Configuration  
 Still logged in as root run:  
 <code>$ apt-get install nodejs</code>  
+
+### Deploying the first version  
+On your personal computer run:  
+<code>$ bundle exec cap production deploy</code>  
+
+This will create a starter structure on your Server.  
+  
+Again on your personal computer generate the Production Key Secret:  
+<code>$ rake secret</code>  
+  
+Copy the secret and as Root on the Server run:    
+<code>$ touch /home/your-new-user/app/shared/config/secrets.yml</code>  
+<code>$ nano /home/your-new-user/app/shared/config/secrets.yml</code>  
+
+In your <code>secrets.yml</code> file insert:  
+<code>production:</code>    
+<code>  secret_key_base: "your-production-secret-key"</code>  
+  
+On your personal computer rerun the deploy command:   
+<code>$ bundle exec cap production deploy</code>  
+  
+This finishes the file structure on the server (ls <code>/home/your-new-user/app</code>).  
+  
+## Step 4 - Install Nginx and Passenger  
+  
+### Install Curl Development Headers With SSL Support  
+  
+As root run: 
+<code>$ apt-get install libcurl4-openssl-dev</code>  
+
+### Passenger  
+
+Then install passenger:  
+<code>$ gem install passenger</code>  
+  
+### Nginx  
+
+After installing Passenger run:  
+<code>$ passenger-install-nginx-module</code>  
+
+### Configuring Nginx  
+  
+In your nginx config file (<code>/opt/nginx/conf/nginx.conf</code>) put:  
+<code>user  your-new-user;</code>  
+  
+at the top of the file. And then put:  
+
+<code>server { </code>  
+<code>  listen 80;</code>  
+<code>  server_name your-ec2-instance.compute-1.amazonaws.com;</code>  
+<code>  root /home/your-new-user/app/current/public;</code>  
+<code>  passenger_enabled on;</code>  
+<code>}</code>  
+
+Then start Nginx with:  
+<code>$ /opt/nginx/sbin/nginx</code>  
+  
+Now check <code>http://your-ec2-instance.compute-1.amazonaws.com/</code>  
+
+## Step 5 - Configuring The Shared Directory  
+
+### Setting Up The Linked Files  
+  
+In <code>config/deploy.rb</code> set the following:  
+<code>set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')</code>  
+
+Then create the linked database directory:  
+<code>$ touch /home/your-new-user/app/shared/config/database.yml</code>
+
+Edit the new database file:    
+<code>$ nano /home/your-new-user/app/shared/config/database.yml</code>  
+
+These settings can be found on your personal computer in the <code>config/database.yml</code> file  
+
+<code>production: </code>  
+<code>  adapter: sqlite3</code>  
+<code>  pool: 5</code>  
+<code>  timeout: 5000</code>  
+<code>  database: db/production.sqlite3</code>  
+  
 <code>$ </code>  
 <code>$ </code>  
 <code>$ </code>  
 <code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
+
