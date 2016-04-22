@@ -165,8 +165,10 @@ These settings can be found on your personal computer in the <code>config/databa
 <code>  timeout: 5000</code>  
 <code>  database: db/production.sqlite3</code>  
   
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
-<code>$ </code>  
+## Your Done!  
+<strong>
+When you make changes remember to commit and push your changes, and then rerun <code>bundle exec cap production deploy</code>.  
+To test your changes locally use <code>bundle exec passenger start</code> on your personal computer.  
+</strong>
+ 
 
