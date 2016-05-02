@@ -31,31 +31,48 @@ $ gem install bundler
 ```bash
 $ useradd -d /home/your-new-user -m -s /bin/bash your-new-user  
 ```
+
 ### Login As User  
 On your personal computer copy your public key (<code>~/your/ssh/path/id_rsa.pub</code>).  
 Then on the server paste the <code>id_rsa.pub</code> with the following:  
-<code>$ mkdir -p /home/your-new-user/.ssh</code>  
-<code>$ touch /home/your-new-user/.ssh/authorized_keys</code>  
-  
+
+```bash
+$ mkdir -p /home/your-new-user/.ssh
+$ touch /home/your-new-user/.ssh/authorized_keys 
+```
+
 Open the new file and paste your public key:  
-<code>$ nano /home/your-new-user/.ssh/authorized_keys</code>  
+```bash
+$ nano /home/your-new-user/.ssh/authorized_keys
+```  
   
 Then run the following:  
-<code>$ chown -R your-new-user /home/your-new-user/.ssh</code>  
-<code>$ chmod 600 /home/your-new-user/.ssh/authorized_keys</code>  
+```bash
+$ chown -R your-new-user /home/your-new-user/.ssh  
+$ chmod 600 /home/your-new-user/.ssh/authorized_keys
+``` 
   
 Now login as the new user:  
-<code>$ ssh your-new-user@your-ec2-instance.compute-1.amazonaws.com</code>  
+```bash
+$ ssh your-new-user@your-ec2-instance.compute-1.amazonaws.com
+```  
 
 If it fails try:  
-<code>$ SSH_AUTH_SOCK=0 ssh your-new-user@your-ec2-insance.compute-1.amazonaws.com</code>  
+```bash
+$ SSH_AUTH_SOCK=0 ssh your-new-user@your-ec2-insance.compute-1.amazonaws.com
+```
+
 Then you can run it with out <code>SSH_AUTH_SOCK=0</code>.  
 
 Check your ruby version:  
-<code>$ ruby -v</code>  
+```bash
+$ ruby -v
+```  
   
 Generate your Github deploy key:  
-<code>$ ssh-keygen -t rsa</code>  
+```bash
+$ ssh-keygen -t rsa
+```  
   
 Copy the key (<code>cat ~/.ssh/id_rsa.pub</code>) to your Github Repos Deploy Keys under Settings.  
 
